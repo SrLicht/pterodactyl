@@ -1,0 +1,68 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v1",
+        "update_url": null
+    },
+    "exported_at": "2021-02-20T12:02:51-05:00",
+    "name": "SCP:SL-Global",
+    "author": "joker@jokersplaygrounds.com",
+    "description": "Installs the game SCP: Secret Laboratory with Exiled.",
+    "features": null,
+    "images": [
+        "joker119\/scp_image:Global"
+    ],
+    "file_denylist": "",
+    "startup": ".\/LocalAdmin {{SERVER_PORT}} -c -- -sharenonconfigs -configpath \/home\/container\/scp_server\/servers\/server1",
+    "config": {
+        "files": "{\r\n    \r\n}",
+        "startup": "{\r\n    \"done\": \"Waiting for players\",\r\n    \"userInteraction\": []\r\n}",
+        "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"logs\/latest.log\"\r\n}",
+        "stop": "exit"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\necho \"Installing steamcmd..\"\r\necho \"deb http:\/\/mirrors.linode.com\/debian stretch main non-free\" >> \/etc\/apt\/sources.list\r\necho \"deb-src http:\/\/mirrors.linode.com\/debian stretch main non-free\" >> \/etc\/apt\/sources.list\r\necho steamcmd steam\/question select \"I AGREE\" | debconf-set-selections\r\necho steamcmd steam\/license note '' | debconf-set-selections\r\nsleep 1\r\n\r\ndpkg --add-architecture i386\r\napt-get update\r\napt-get install lib32gcc1 wget curl tar whiptail steamcmd -y\r\nsleep 1\r\n\r\ncd \/mnt\/server\r\n\r\n\r\n\/usr\/games\/steamcmd +login anonymous +force_install_dir \/mnt\/server\/scp_server +app_update 996560 +quit\r\necho \"Downloading EXILED..\"\r\nwget https:\/\/github.com\/galaxy119\/EXILED\/releases\/download\/2.2.5\/Exiled.Installer-Linux\r\nls\r\nchmod +x Exiled.Installer-Linux\r\necho \"Installing EXILED..\"\r\n.\/Exiled.Installer-Linux --path \/mnt\/server\/scp_server --pre-releases --exit\r\necho \"Installing Discord Integration bot..\"\r\nwget jokersplaygrounds.com\/bot.tar.gz\r\nmkdir DiscordIntegration\r\ntar xzvf bot.tar.gz -C DiscordIntegration\r\n\r\ncd scp_server\r\necho \"Installation complete!\"",
+            "container": "mono:6",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Use Pre Releases",
+            "description": "Whether or not to use pre-releases of EXILED.",
+            "env_variable": "PRE_RELEASE",
+            "default_value": "0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean|max:20"
+        },
+        {
+            "name": "Special Branch",
+            "description": "Use this to tell the panel that you would like to install a specific SCP:SL branch (used for Public Test Builds etc)",
+            "env_variable": "SPECIAL_BRANCH",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:20"
+        },
+        {
+            "name": "EXILED Version",
+            "description": "Allows your to specify what version of EXILED to install on the server.",
+            "env_variable": "EXILED_VER",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:20"
+        },
+        {
+            "name": "Reinstall SCP On Restart",
+            "description": "Whether the panel should re-install SCP:SL every restart. This is used for keeping SCP:SL up to date on your panel automatically. Disabling this can speed up server startup speed.",
+            "env_variable": "REINSTALL",
+            "default_value": "0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean|max:20"
+        }
+    ]
+}
