@@ -52,24 +52,22 @@ if [ -f "/home/container/.config/EXILED/Plugins/DiscordIntegration_Plugin.dll" ]
     integration=true
 fi
 
-if $integration && $stats; then
-    cd DiscordIntegration &&
-    mono DiscordIntegration_Bot.exe > /home/container/DiscordIntegration/logs/latest.log &
-    cd /home/container/PlayerStatsBot &&
-    mono PlayerStatsBot.exe > /home/container/PlayerStatsBot/latest.log &
-    cd /home/container/scp_server &&
-    ${MODIFIED_STARTUP};
-elif $integration; then
-    cd DiscordIntegration &&
-    mono DiscordIntegration_Bot.exe > /home/container/DiscordIntegration/logs/latest.log &
-    cd /home/container/scp_server &&
-    ${MODIFIED_STARTUP};
-elif $stats; then
-    cd PlayerStatsBot &&
-    mono PlayerStatsBot.exe > /home/container/PlayerStatsBot/latest.log &
-    cd /home/container/scp_server &&
-    ${MODIFIED_STARTUP};
-else
-    cd /home/container/scp_server &&
-    ${MODIFIED_STARTUP};
+if [ -f "/home/container/.config/EXILED/Plugins/DiscordIntegration.dll" ]; then
+        cd DiscordIntegration &&
+        if [ ! -d "/home/container/DiscordIntegration/node_modules" ]; then
+                npm install package.json
+        fi
+        
+        node discordIntegration.js > /home/container/DiscordIntegration/logs/latest.log &
+        sed "s/port:.*/port: ${SERVER_PORT}/g" config.yml > output.txt &&
+        rm -rf config.yml &&
+        mv output.txt config.yml &&
+        cd /home/container &&
+       
+        sed "s/port:.*/port: ${SERVER_PORT}/g" .config/EXILED/Configs/${SERVER_PORT}-config.yml > output.txt &&
+        rm -rf .config/EXILED/Configs/${SERVER_PORT}-config.yml &&
+        mv output.txt .config/EXILED/Configs/${SERVER_PORT}-config.yml
 fi
+
+cd /home/container/scp_server &&
+${MODIFIED_STARTUP};
