@@ -37,20 +37,6 @@ rm -rf "temp" &&
 mkdir "temp" &&
 export DOTNET_BUNDLE_EXTRACT_BASE_DIR="temp"
 ./Exiled.Installer-Linux -p /home/container/scp_server --pre-releases --exit
-cd .config &&
-
-cd /home/container &&
-
-stats=false
-integration=false
-
-if [ -f "/home/container/.config/EXILED/Plugins/PlayerStats.dll" ]; then
-    stats=true
-fi
-
-if [ -f "/home/container/.config/EXILED/Plugins/DiscordIntegration_Plugin.dll" ]; then
-    integration=true
-fi
 
 if [ -f "/home/container/.config/EXILED/Plugins/DiscordIntegration.dll" ]; then
         cd DiscordIntegration &&
