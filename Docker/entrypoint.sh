@@ -4,7 +4,7 @@ cd /home/container || exit
 MODIFIED_STARTUP=$(eval echo "$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')")
 echo "/home/container/scp_server$: ${MODIFIED_STARTUP}"
 
-if [ "$REINSTALL" == 1 ]; then
+if [ "$REINSTALL" == 1 ] || [ ! -d "/home/container/scp_server" ]; then
         if [ ! -f "steamcmd.sh" ]; then
             curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
         fi
@@ -32,11 +32,15 @@ if [ ! -z "$EXILED_VER" ]; then
         EXTRA="--pre-releases --target-version $EXILED_VER"
 fi
 
-./Exiled.Installer-Linux -p /home/container/scp_server "$EXTRA"
 rm -rf "temp" &&
 mkdir "temp" &&
 export DOTNET_BUNDLE_EXTRACT_BASE_DIR="temp"
-./Exiled.Installer-Linux -p /home/container/scp_server --pre-releases --exit
+
+if [ ! -d "/home/container/.config" ]; then
+  mkdir .config
+fi
+
+./Exiled.Installer-Linux --appdata /home/container/.config -p /home/container/scp_server "$EXTRA" --exit
 
 if [ -f "/home/container/.config/EXILED/Plugins/DiscordIntegration.dll" ]; then
         cd DiscordIntegration &&
