@@ -12,7 +12,6 @@
 	"images": [
 		"joker119\/scp_image:Global"
 	],
-	"file_denylist": "",
 	"startup": ".\/LocalAdmin {{SERVER_PORT}} -c -- -sharenonconfigs -configpath \/home\/container\/scp_server\/servers\/server1",
 	"config": {
 		"files": "{\r\n    \r\n}",
