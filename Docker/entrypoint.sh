@@ -29,7 +29,7 @@ if [ "$PRE_RELEASE" == 1 ]; then
         EXTRA="--pre-releases"
 fi
 if [ ! -z "$EXILED_VER" ]; then
-        EXTRA="--pre-releases --target-version $EXILED_VER"
+        EXTRA="--target-version $EXILED_VER"
 fi
 
 rm -rf "temp" &&
