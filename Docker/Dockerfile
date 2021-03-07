@@ -23,6 +23,7 @@ RUN chown -R container:container /mnt/server
 USER container
 ENV USER=container HOME=/home/container
 WORKDIR /home/container
+ENV CACHEBUST=1
 COPY ./entrypoint.sh /entrypoint.sh
 
 CMD ["/bin/bash", "/entrypoint.sh"]

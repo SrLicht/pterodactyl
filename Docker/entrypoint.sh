@@ -40,14 +40,14 @@ if [ ! -d "/home/container/.config" ]; then
   mkdir .config
 fi
 
-./Exiled.Installer-Linux --appdata /home/container/.config -p /home/container/scp_server "$EXTRA" --exit
+./Exiled.Installer-Linux --appdata /home/container/.config -p /home/container/scp_server $EXTRA --exit
 
 if [ -f "/home/container/.config/EXILED/Plugins/DiscordIntegration.dll" ]; then
         cd DiscordIntegration &&
         if [ ! -d "/home/container/DiscordIntegration/node_modules" ]; then
                 npm install package.json
         fi
-        
+
         node discordIntegration.js > /home/container/DiscordIntegration/logs/latest.log &
         cd /home/container || exit
 fi
