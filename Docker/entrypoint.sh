@@ -15,7 +15,8 @@ if [ "$REINSTALL" == 1 ] || [ ! -d "/home/container/scp_server" ]; then
         if [ ! -z "$SPECIAL_BRANCH" ]; then
                 EX="-beta $SPECIAL_BRANCH"
         fi
-        ./steamcmd.sh +login anonymous +force_install_dir /home/container/scp_server +app_update 996560 validate $EX +quit
+        ./steamcmd.sh +login anonymous +app_update 996560 validate $EX +quit &&
+        mv ~/Steam/steamapps/common/SCP*/* ~/scp_server &&
 fi
 
 
