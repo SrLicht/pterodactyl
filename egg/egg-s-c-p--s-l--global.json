@@ -63,6 +63,15 @@
 			"user_viewable": true,
 			"user_editable": true,
 			"rules": "required|boolean|max:20"
-		}
+		},
+        {
+            "name": "Branch Password",
+            "description": "Special password for your branch, if there is one",
+            "env_variable": "BRANCH_PASSWORD",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string|max:40"
+        }
 	]
 }
