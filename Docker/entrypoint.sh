@@ -19,8 +19,8 @@ if [ $REINSTALL == 1 ]; then
                 fi
         fi
         echo $EX
-        ./steamcmd.sh +login anonymous +app_update 996560 validate $EX +quit &&
-        cp -r ~/Steam/steamapps/common/SCP*/* ~/scp_server
+        ./steamcmd.sh +login anonymous +force_install_dir ./scp_server +app_update 996560 validate $EX +quit
+#        cp -r ~/Steam/steamapps/common/SCP*/* ~/scp_server
 fi
 
 
