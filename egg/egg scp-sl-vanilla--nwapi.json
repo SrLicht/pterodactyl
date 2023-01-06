@@ -4,9 +4,9 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2023-01-06T11:47:07-03:00",
-    "name": "SCP:SL Vanilla/NWAPI",
-    "author": "github.com/SrLicht",
+    "exported_at": "2023-01-06T12:01:13-03:00",
+    "name": "SCP:SL Vanilla - NWAPI",
+    "author": "joker@jokersplaygrounds.com",
     "description": "Egg for SCP: Secret Laboratory Dedicated Linux Server",
     "features": [
         "steam_disk_space"
@@ -52,7 +52,7 @@
         },
         {
             "name": "Branch",
-            "description": "Use this to tell the panel that you would like to install a specific SCP:SL branch (used for Public Test Builds etc)",
+            "description": "Use this to tell the panel that you would like to install a specific SCP:SL branch (used for Public Test Builds etc).",
             "env_variable": "SL_BRANCH",
             "default_value": "",
             "user_viewable": true,
@@ -71,13 +71,13 @@
             "field_type": "text"
         },
         {
-            "name": "Reinstall SCP On Restart",
+            "name": "Reinstall next start",
             "description": "Whether the panel should re-install SCP:SL every restart. This is used for keeping SCP:SL up to date on your panel automatically. Disabling this can speed up server startup speed.",
             "env_variable": "REINSTALL",
             "default_value": "0",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|boolean|max:1",
+            "rules": "required|string|max:1",
             "field_type": "text"
         }
     ]
