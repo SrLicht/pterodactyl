@@ -6,8 +6,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - Docker/**
 jobs:
   push:
     name: "pterodactyl:mono_${{ matrix.tag }}"
